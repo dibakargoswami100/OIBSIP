@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Authentication</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(45deg, #FF5733, #FFB732, #33FF57, #579BFF);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="#" onsubmit="login(event)">
+        <div class="container">
+            <div>
+                <input type="text" id="email" placeholder="Email">
+            </div>
+            <div>
+                <input type="password" id="password" placeholder="Password">
+            </div>
+            <button type="submit" id="signin">Sign In</button>
+        </div>
+    </form>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA4yKel6pvtBPEkN9oQBq5l-4OUCF6IDy0",
+            authDomain: "sign-up-form-2b98a.firebaseapp.com",
+            projectId: "sign-up-form-2b98a",
+            storageBucket: "sign-up-form-2b98a.appspot.com",
+            messagingSenderId: "147163806721",
+            appId: "1:147163806721:web:f899259747ef1247d81400"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth();
+
+        // Getting all the objects of HTML files
+        var email = document.getElementById("email");
+        var password = document.getElementById("password");
+
+        window.login = function (e) {
+            e.preventDefault();
+            var obj = {
+                email: email.value,
+                password: password.value
+            };
+
+            signInWithEmailAndPassword(auth, obj.email, obj.password)
+                .then(function (userCredential) {
+                    // Signed in
+                    const user = userCredential.user;
+                    console.log(user.uid);
+                    alert("Logged in Successfully");
+                })
+                .catch(function (error) {
+                    var errorMessage = error.message;
+                    alert("Login Error: " + errorMessage);
+                });
+            console.log(obj);
+        };
+    </script>
+</body>
+
+</html>

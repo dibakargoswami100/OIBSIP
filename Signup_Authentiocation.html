@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup / Login Authentication</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4;
+            background-image: linear-gradient(45deg, #ff4e50, #f9d423, #4e54c8);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Signup</h1>
+        <form onsubmit="signup(event)">
+            <div>
+                <input type="text" id="firstname" name="firstname" placeholder="First Name">
+            </div>
+            <div>
+                <input type="text" id="lastname" name="lastname" placeholder="Last Name">
+            </div>
+            <div>
+                <input type="email" name="email" id="email" placeholder="Email">
+            </div>
+            <div>
+                <input type="password" name="password" id="password" placeholder="Password">
+            </div>
+            <button type="submit" id="signupbtn">Sign up</button>
+            <button><link rel="stylesheet" href="login_Authentiocation.html">login </button>
+        </form>
+    </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA4yKel6pvtBPEkN9oQBq5l-4OUCF6IDy0",
+            authDomain: "sign-up-form-2b98a.firebaseapp.com",
+            projectId: "sign-up-form-2b98a",
+            storageBucket: "sign-up-form-2b98a.appspot.com",
+            messagingSenderId: "147163806721",
+            appId: "1:147163806721:web:f899259747ef1247d81400"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+
+        // Getting all the objects of HTML files
+        var firstname = document.getElementById("firstname");
+        var lastname = document.getElementById("lastname");
+        var email = document.getElementById("email");
+        var password = document.getElementById("password");
+
+        // Making a function for signing up
+        window.signup = function (e) {
+            e.preventDefault();
+            var obj = {
+                firstname: firstname.value,
+                lastname: lastname.value,
+                email: email.value,
+                password: password.value,
+            };
+            createUserWithEmailAndPassword(auth, obj.email, obj.password)
+                .then(function (success) {
+                    alert("Signup Successful");
+                })
+                .catch(function (err) {
+                    alert("Error: " + err.message);
+                });
+            console.log(obj);
+        };
+    </script>
+</body>
+
+</html>
